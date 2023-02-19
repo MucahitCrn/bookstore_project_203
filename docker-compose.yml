@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  database:
+    image: mysql:5.7  # docker run mysql:5.7
+    container_name: database # docker run --name database
+    environment:
+      MYSQL_ROOT_PASSWORD: define-a-root-password-here   # docker run --name database --env MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: bookstore_db   # docker run --name database --env MYSQL_DATABSE: bookstore-db
+      MYSQL_USER: clarusway         # docker run --name database --env MYSQL-USER: clarusway
+      MYSQL_PASSWORD: define-a-db-password-here   # docker run --name database --env MYSQL_PASSWORD: Clarusway_1
+  
+    networks:  # docker run --network clarusnet
+      - clarusnet
+  
+  myapp:
+    image: bookstore-api:latest
+    container_name: myapp
+    restart: always
+    depends_on:
+      - database
+    networks:
+      - clarusnet
+    ports:
+      - "80:80"
+
+networks:
+  clarusnet:
+    
+
